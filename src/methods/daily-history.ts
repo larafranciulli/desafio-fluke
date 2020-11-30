@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import api from '../services/api';
+import { format } from 'date-fns';
 
 interface CoinList {
     Data: {
@@ -32,7 +33,7 @@ export const dailyHistory = async (request: Request, response: Response): Promis
 
     const history = data.Data.Data.map(moeda => {
         return {
-            date: new Date(1000 * parseInt(moeda.time)),
+            date: format(new Date(1000 * parseInt(moeda.time)), 'dd/MM/yyyy'),
             open: moeda.open,
             close: moeda.close,
             low: moeda.low,
