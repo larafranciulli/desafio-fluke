@@ -1,6 +1,7 @@
 import express, { Request, Response, NextFunction } from 'express';
 import routes from './routes';
 import 'express-async-errors';
+import './database/firebase';
 
 const app = express();
 
@@ -8,6 +9,14 @@ const app = express();
 app.use(express.json());
 app.use(routes);
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+app.use((err: Error, request: Request, response: Response, _: NextFunction) => {
+  console.error(err);
+  return response.status(500).json({
+    status: 'error',
+    message: 'Internal server error',
+  });
+});
 /*
 
 requisições iniciais de teste
@@ -52,14 +61,6 @@ app.post('/teste', (request, response) => {
 */
 
 // função para express tratar erros
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-app.use((err: Error, request: Request, response: Response, _: NextFunction) => {
-  console.error(err);
-  return response.status(500).json({
-    status: 'error',
-    message: 'Internal server error',
-  });
-});
 
 // dá a porta pra express
 app.listen(3333);
