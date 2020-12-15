@@ -37,7 +37,7 @@ export const login = async (request: Request, response: Response): Promise<void>
 
   delete user.password;
 
-  response.json({ user, signedToken });
+  response.json({ user, token: signedToken });
 
   // await firestore.collection('users').where('email', '==', email).get()
   //   .then(user => {

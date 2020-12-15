@@ -11,7 +11,6 @@ export const authentication = async (request: Request, response: Response, next:
     }
     // Bearer asdniasidnhasiduanshd
     const [, providedToken] = (auth as string).split(' ');
-    console.log('>', providedToken);
     verify(providedToken, token);
   } catch (err) {
     response.status(401).json({ message: 'token jwt invalido' });
